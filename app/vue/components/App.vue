@@ -1,11 +1,12 @@
-<template>
-  <div id="app">
+<template> 
+ <!-- this is the code for an undefeatable tictactoe game can be found on https://naderjs.lib.id/ticvue@dev/ -->
+  <div id="app">  <!-- the full code for this  is on github  https://github.com/NaderJS/libticvue --> 
   <el-row type='flex' class="row-bg" justify="center">
-   <div id="grid">
-   <div id='grid1' >
-   <div v-for="box in objects" class="box" @click="add(box.index);AImove()">
-   <h1 class="botex">{{box.sign}}</h1>
-   </div>
+   <div id="grid">   
+   <div id='grid1' >  <!-- here is just using V-for looping through the objects at line 84 while adding event listeners -->
+   <div v-for="box in objects" class="box" @click="add(box.index);AImove()">  
+   <h1 class="botex">{{box.sign}}</h1> <!-- that sign in the h1 tag its at line 87 -->
+   </div> <!-- this loop is for making a reactive 3x3 grid -->
    </div>
    <el-button type="warning" @click="clear" class="res" >Restart</el-button>
    <el-button type='danger' @click='AImove()' class="ai">AI start</el-button>
@@ -17,7 +18,7 @@
    </div>
    </div>
 </div>
-</el-row>
+</el-row> <!-- this is my email  if you want me to explain this algorithm instead of reading the comments nader_atef80@outlook.com -->
 
   </div>
 </template>
@@ -81,12 +82,13 @@ export default {
   },
   data(){
     return {
-      objects:[
-        {
-          value: 8,
-          sign:'',
+      objects:[  //these value properties which would look like it doesn't make any sense this is the way of making the AI understand how the game works
+        { // if you put every value in a box of the 3x3 grid one by one with this same sort of the array from the left to the right u will see that every 3 digits on the same line (like the way how someone wins in the tictactoe) 
+          value: 8, //u will see that some of these 3 digits equals 15 and thats how the concept of the game works 
+          //if it is still unclear this is my email nader_atef80@outlook.com email me  and I will send u an image which will make it easier
+          sign:'', //sign properties are just for which sign it is X or O in the box object
 
-        },{
+        },{ //please take a look at line 572 then come back to here
           value:1,
           sign:'',
         },{
@@ -112,26 +114,20 @@ export default {
           sign:'',
         }
       ],
-      icon:'',
+      icon:'', //that is the sign or the icon of the  player and the AI
       AIicon:'',
-      userVal:[],
-      AIval:[],
-      qArr: [6,8,0,2],
+      userVal:[], //userVal and AIval these are the array of values which are assigned to the boxes in the array objects   
+      AIval:[],//which means that when a box is chosen the value of this box gets added to one of the two arrays 
+      qArr: [6,8,0,2], //these are just special arrays of some specific indexes of the objects array
       cArr:[7,5,3,1],
-      count:[],
+      count:[], //this array 'count' it contain the available moves to the AI the moves are objects with properties  
       breaker: undefined,
-      play: false
+      play: false //just to allow the AI and the player to play or not
     }
   },
   methods:{
-    filt: function(index){
-      let self =  this
-       if(self.objects[index].taken == true){}
-       else{
-         self.AImove()
-       }
-    },
     clear:function(){
+      //this is the restart function which returns everything to the begining
       let self = this
       for(var key in self.objects){
         self.objects[key].sign = ''
@@ -145,7 +141,7 @@ export default {
       
     },
     add:function(index,side,cond){
-      let self = this 
+      let self = this  //this is the function which makes the move of the player and the AI the side argu is for specifying which one is playing AI or the player
       console.log(index)
       if(cond){
           self.objects[index].sign = self.AIicon
@@ -170,7 +166,7 @@ export default {
       }
     },
     setIcons:function(text){
-      let self = this 
+      let self = this  //this is  the function which assign which one is X and which one is O
       self.clear()
       self.play = true
       if(text == 'X'){
@@ -183,7 +179,7 @@ export default {
     },
     AImove:function(){
       let self = this
-      self.count = []
+      self.count = []  // function which takes maybe more the 300 lines is the function which specifies which move should the AI do or how the AI plays 
       self.cArr = [7,5,3,1]
       if(self.play){
       console.log('start')
@@ -200,7 +196,7 @@ export default {
             self.add(4,self.AIval)
         }else if(self.objects[4].taken == true){
            let r =  self.ranNo(1,3)
-           console.log('it should be here really')
+           console.log('the code got to here')    //here this is me tracing my code and which condition happened I use these console logs alot its very helpful finding anybug
            if(self.objects[self.qArr[r]].taken == true){
              if(r<self.qArr.length -1){
                self.add(self.qArr[r+1],self.AIval)
@@ -208,7 +204,7 @@ export default {
                self.add(self.qArr[r-1],self.AIval)
              }
            }else{
-             console.log('I dont understand')
+             console.log('it seems to be here')
              self.add(self.qArr[r],self.AIval)
            }
         }else{
@@ -372,7 +368,7 @@ break
               for(let u in ar){
                  if(self.idArr[ele][2] !== ar[u]){
                    self.runer++
-                 }
+                 }  //here I was just trying something out and it didn't work
              }
              if(self.runer == ar.length  ){
                if(self.idArr[ele][2] !== "7"){
@@ -567,8 +563,8 @@ tripFunc:function(arr,key,an){
 return reArr
 }
   },
-  mounted:function(){
-    let self = this 
+  mounted:function(){ //this mounted function is just box I forgot to add 2 properties to the whole objects array 
+    let self = this //this function gets fired just after the component gets mounted to the element  or just as the page load if you are not familiar with Vuejs life cycle hooks
     self.arr = []
     for(var key in self.objects){
       self.objects[key].index = key
