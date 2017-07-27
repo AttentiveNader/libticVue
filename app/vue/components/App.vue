@@ -1,10 +1,10 @@
-<template> 
+<template>
  <!-- this is the code for an undefeatable tictactoe game can be found on https://naderjs.lib.id/ticvue@dev/ -->
-  <div id="app">  <!-- the full code for this  is on github  https://github.com/NaderJS/libticvue --> 
+  <div id="app">  <!-- the full code for this  is on github  https://github.com/NaderJS/libticvue -->
   <el-row type='flex' class="row-bg" justify="center">
-   <div id="grid">   
+   <div id="grid">
    <div id='grid1' >  <!-- here is just using V-for looping through the objects at line 84 while adding event listeners -->
-   <div v-for="box in objects" class="box" @click="add(box.index);AImove()">  
+   <div v-for="box in objects" class="box" @click="add(box.index);AImove()">
    <h1 class="botex">{{box.sign}}</h1> <!-- that sign in the h1 tag its at line 87 -->
    </div> <!-- this loop is for making a reactive 3x3 grid -->
    </div>
@@ -60,7 +60,7 @@ margin: 0 auto;
 display: block
 }
 .b{
- 
+
 }
 #grid{
   max-width: 240px;
@@ -78,13 +78,13 @@ display: block
 export default {
   name: 'app',
   components: {
-  
+
   },
   data(){
     return {
       objects:[  //these value properties which would look like it doesn't make any sense this is the way of making the AI understand how the game works
-        { // if you put every value in a box of the 3x3 grid one by one with this same sort of the array from the left to the right u will see that every 3 digits on the same line (like the way how someone wins in the tictactoe) 
-          value: 8, //u will see that some of these 3 digits equals 15 and thats how the concept of the game works 
+        { // if you put every value in a box of the 3x3 grid one by one with this same sort of the array from the left to the right u will see that every 3 digits on the same line (like the way how someone wins in the tictactoe)
+          value: 8, //u will see that some of these 3 digits equals 15 and thats how the concept of the game works
           //if it is still unclear this is my email nader_atef80@outlook.com email me  and I will send u an image which will make it easier
           sign:'', //sign properties are just for which sign it is X or O in the box object
 
@@ -116,11 +116,11 @@ export default {
       ],
       icon:'', //that is the sign or the icon of the  player and the AI
       AIicon:'',
-      userVal:[], //userVal and AIval these are the array of values which are assigned to the boxes in the array objects   
-      AIval:[],//which means that when a box is chosen the value of this box gets added to one of the two arrays 
+      userVal:[], //userVal and AIval these are the array of values which are assigned to the boxes in the array objects
+      AIval:[],//which means that when a box is chosen the value of this box gets added to one of the two arrays
       qArr: [6,8,0,2], //these are just special arrays of some specific indexes of the objects array
       cArr:[7,5,3,1],
-      count:[], //this array 'count' it contain the available moves to the AI the moves are objects with properties  
+      count:[], //this array 'count' it contain the available moves to the AI the moves are objects with properties
       breaker: undefined,
       play: false //just to allow the AI and the player to play or not
     }
@@ -138,14 +138,14 @@ export default {
       self.icon = ''
       self.AIicon = ''
       self.play = false
-      
+
     },
     add:function(index,side,cond){
       let self = this  //this is the function which makes the move of the player and the AI the side argu is for specifying which one is playing AI or the player
       console.log(index)
       if(cond){
           self.objects[index].sign = self.AIicon
-       self.AIval.push(self.objects[index].value) 
+       self.AIval.push(self.objects[index].value)
        self.play = false
       }
      else if(self.play){
@@ -153,7 +153,7 @@ export default {
       if(self.objects[index].taken == true){
       }else if(side){
       self.objects[index].sign = self.AIicon
-       self.AIval.push(self.objects[index].value) 
+       self.AIval.push(self.objects[index].value)
    //   console.log("side:",side)
       }else{
       self.objects[index].sign = self.icon
@@ -179,7 +179,7 @@ export default {
     },
     AImove:function(){
       let self = this
-      self.count = []  // function which takes maybe more the 300 lines is the function which specifies which move should the AI do or how the AI plays 
+      self.count = []  // function which takes maybe more the 300 lines is the function which specifies which move should the AI do or how the AI plays
       self.cArr = [7,5,3,1]
       if(self.play){
       console.log('start')
@@ -237,8 +237,8 @@ export default {
             self.hrArr.push(self.userVal[0])
             self.ident = true
           }
-           
-          
+
+
         }
           }
         if(self.hrArr.length == 2 ){
@@ -250,11 +250,11 @@ export default {
         }
         console.log(self.hrArr,'hrArr here')
         }
-        
+
       for(let key in self.objects){
         if(self.objects[key].taken == true){
         }else{
-       
+
         //var id = self.userVal.reduce((a,b)=> a+b )
      // console.log(id,self.userVal)
       self.go = []
@@ -269,33 +269,33 @@ export default {
      AIarr.push(self.objects[key].value)
      let ad = self.tripFunc(AIarr)
      let id = self.tripFunc(self.go)
-    
+
   //   console.log('id',id)
-   
+
     if(ad[0]){
 let g = self.AIval
 
       let obj = {
         index: key,
-        res: 10
+        res: 15
       }
         console.log('ad heeeeeeeeeeey you here')
  //         if(!self.breaker){
   self.count.push(obj)
 //}
-       
+
      }
        if(id[0]){
          // console.log(id,'id')
-        
+
       //  if(!self.breaker){
  self.count.push({
    index:key,
    res:5,
    hint: 'from normal def'
  })
-//} 
-break
+//}
+
   //      self.userVal.pop()
     //    self.go.pop()
 
@@ -313,27 +313,27 @@ break
          if(id1[0]){
             self.idArr.push(id1)
                 console.log(id1,'id1 it got tooo herer',key,an )
-             
-           
-       
-             
+
+
+
+
              self.breaker = true
            //   break
-              
+
               }else{
-              
+
               }
               self.go.pop()
                  }
                }
                }
-          
-          
-           
- AIarr.pop()         
+
+
+
+ AIarr.pop()
          self.go.pop()
       // self.userVal.pop()
-        } 
+        }
        }
          //   console.log(self.idArr,'idArr here yoooo')
              var ar = []
@@ -364,7 +364,7 @@ break
          }
          for(let el in self.idArr){
            if(self.idArr[el][3] == self.idArr[ele][3] && el !== ele){
-       /*      self.runer = 0                                         
+       /*      self.runer = 0
               for(let u in ar){
                  if(self.idArr[ele][2] !== ar[u]){
                    self.runer++
@@ -383,15 +383,15 @@ break
              }
                 if(self.runer == ar.length && self.idArr[el][2] !== "7"){
                ar.push(self.idArr[el][2])
-               
+
              }*/
            ar.push(self.idArr[el][2])
-         
+
          //  ar.push(self.idArr[el][3])
            }
          }
         // console.log(ar)
-       
+
          if(ar.length >= 2){
            console.log('about to work',ar,self.ident)
            if(ar[0] == 3  && self.ident){
@@ -407,10 +407,10 @@ break
              hint:'from deep def'
            })
            }
-         
+
          }
         }
-    
+
        if(self.count.length < 1){
           self.idan = []
           let paArr= []
@@ -439,13 +439,13 @@ break
          if(id1[0]){
             self.idArr.push(id1)
                 console.log(id1,'id1 it got tooo here sec time',r,an )
-              
-           
-       
+
+
+
             // self.go.pop()
-             
+
            //   break
-              
+
               }
               self.go.pop()
                  }
@@ -455,26 +455,26 @@ break
           }
            var ar = []
         for(let ele in self.idArr){
-       
+
          for(let el in self.idArr){
            if(self.idArr[el][3] == self.idArr[ele][3] && el !== ele){
                ar.push(self.idArr[ele][3])
-         
-         
+
+
          //  ar.push(self.idArr[el][3])
            }
          }
         // console.log(ar)
-       
+
          if(ar.length >= 1){
            console.log('about to work sec time',ar,self.ident)
-  
+
            self.count.push({
              index: ar[ar.length -1],
              res: -1
            })
-           
-          
+
+
          }
         }
       for(let u in self.objects){
@@ -484,19 +484,19 @@ break
            self.userVal.push(self.objects[u].value)
            let intr  = self.tripFunc(self.userVal)
            if(intr[0]){
-            
+
              break
            }
            self.userVal.pop()
          }
          }
-        
+
          if(self.count.length < 1){
            self.count.push({
              index: self.idan[self.ranNo(0,self.idan.length -1)].index,
              res: -2
            })
-         } 
+         }
        }
           self.count.sort(function(a,b){
         return a.res - b.res
@@ -508,7 +508,7 @@ break
       self.add(self.count[self.count.length -1].index,self.AIval,false)
       }
       }
-       
+
       }
       console.log(self.AIval,self.userVal)
     },
@@ -537,7 +537,7 @@ tripFunc:function(arr,key,an){
            defArr.push(arr[g])
            defArr.push(arr[a])
            let id  = defArr.reduce((a,b)=> a+b)
-           
+
            if(id == 15){
          //    console.log(defArr,'defArr here')
              reVal = true
@@ -558,12 +558,12 @@ tripFunc:function(arr,key,an){
      }
     }
     }
-    
+
   }
 return reArr
 }
   },
-  mounted:function(){ //this mounted function is just box I forgot to add 2 properties to the whole objects array 
+  mounted:function(){ //this mounted function is just box I forgot to add 2 properties to the whole objects array
     let self = this //this function gets fired just after the component gets mounted to the element  or just as the page load if you are not familiar with Vuejs life cycle hooks
     self.arr = []
     for(var key in self.objects){
@@ -572,7 +572,7 @@ return reArr
       self.arr.push(self.objects[key])
     }
   //  console.log(self.objects,self.arr)
-    
+
 
   }
 }
